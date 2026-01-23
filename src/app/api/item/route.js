@@ -36,7 +36,7 @@ export async function POST(req) {
     const itemCategory = data.category;
     try {
         const client = await getClientPromise();
-        const db = client.db("wad-01");
+        const db = client.db("wod-01");
         const result = await db.collection("item").insertOne({
             itemName: itemName,
             itemCategory: itemCategory,
