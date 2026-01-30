@@ -9,13 +9,19 @@ export async function OPTIONS(req) {
     });
 }
 export async function GET() {
+    const headers = {
+        "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+        "Pragma": "no-cache",
+        "Expires": "0",
+        ...corsHeaders
+    }
     try {
         const client = await getClientPromise();
         const db = client.db("wod-01");
         const result = await db.collection("item").find({}).toArray();
         console.log("==> result", result);
         return NextResponse.json(result, {
-            headers: corsHeaders
+            headers: headers
         });
     }
     catch (exception) {
